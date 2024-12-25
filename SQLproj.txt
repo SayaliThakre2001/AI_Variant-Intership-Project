@@ -1,0 +1,88 @@
+-- Q4--
+
+SELECT SALESPEOPLE.SNAME,CUST_TABLE.CNAME,SALESPEOPLE.CITY
+FROM SALESPEOPLE,CUST_TABLE
+WHERE SALESPEOPLE.CITY=CUST_TABLE.CITY;
+
+
+
+
+
+-- Q5--
+use projectdb;
+select cust_table.cname, salespeople.sname
+from  cust_table
+join salespeople on cust_table.snum = salespeople.snum;
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 9.	Write a query to find out all pairs of customers served by a single salesperson
+SELECT 
+    c1.cname AS Customer1, 
+    c2.cname AS Customer2, 
+    c1.snum AS Salesperson
+FROM 
+    Cust c1
+JOIN 
+    Cust c2
+ON 
+    c1.snum = c2.snum 
+    AND c1.cnum < c2.cnum; -- Avoid duplicate pairs and self-pairs
+
+-- 10.	Write a query that produces all pairs of salespeople who are living in same city
+
+SELECT 
+    s1.sname AS Salesperson1, 
+    s2.sname AS Salesperson2, 
+    s1.city AS City
+FROM 
+    Salespeople s1
+JOIN 
+    Salespeople s2
+ON 
+    s1.city = s2.city 
+    AND s1.snum < s2.snum; -- Avoid duplicate pairs and self-pairs
+
+
+-- Q13 --
+SELECT *
+FROM Orders
+WHERE snum IN (
+    SELECT snum
+    FROM Salespeople
+    WHERE city = 'London'
+);
+
+-- Q14 --
+SELECT *
+FROM cust_table
+WHERE cnum = (
+    SELECT snum + 1000
+    FROM Salespeople
+    WHERE sname = 'Serres'
+    );
+    
+
+-- 10.	Write a query that produces all pairs of salespeople who are living in same city
+
+SELECT 
+    s1.sname AS Salesperson1, 
+    s2.sname AS Salesperson2, 
+    s1.city AS City
+FROM 
+    Salespeople s1
+JOIN 
+    Salespeople s2
+ON 
+    s1.city = s2.city 
+    AND s1.snum < s2.snum; -- Avoid duplicate pairs and self-pairs
